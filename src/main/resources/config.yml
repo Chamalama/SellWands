@@ -1,0 +1,8 @@
+name: '&6&lSell Wand'
+material: 'STICK'
+lore: [ ]
+messages:
+  sell: 'You have sold this chest for: %value%! &7&o(You now have %uses% remaining)'
+  breakdown: '%amount%x %material% - $%value%'
+  break: 'Your sell wand broke. :('
+  nothing: '&cThere was nothing to sell. :('
