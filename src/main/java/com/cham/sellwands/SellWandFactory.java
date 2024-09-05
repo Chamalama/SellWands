@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.text.NumberFormat;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,8 +23,10 @@ public class SellWandFactory {
     private final NamespacedKey idKey;
     private final NamespacedKey usesKey;
 
+
     private final AttributeModifier attributeModifier;
 
+    private final NumberFormat numberFormat = NumberFormat.getInstance();
     private ItemStack baseWand;
 
     public SellWandFactory(SellWandPlugin plugin) {
@@ -48,9 +51,6 @@ public class SellWandFactory {
             this.baseWand = new ItemStack(plugin.getConfiguration().getWandMaterial());
 
             this.baseWand.editMeta(meta -> {
-                meta.displayName(Chat.translate(plugin.getConfiguration().getWandName()));
-                meta.lore(Chat.translate(plugin.getConfiguration().getWandLore()));
-
                 meta.getPersistentDataContainer().set(wandKey, PersistentDataType.BOOLEAN, true);
 
                 meta.setUnbreakable(true);
@@ -69,6 +69,8 @@ public class SellWandFactory {
             itemMeta.getPersistentDataContainer().set(idKey, PersistentDataType.STRING, UUID.randomUUID().toString());
         });
 
+        updateMeta(toReturn, uses);
+
         return toReturn;
     }
 
@@ -86,8 +88,17 @@ public class SellWandFactory {
         return 0;
     }
 
+    public void updateMeta(ItemStack itemStack, int uses) {
+        itemStack.editMeta(meta -> {
+            meta.displayName(Chat.translate(plugin.getConfiguration().getWandName().replace("%uses%", numberFormat.format(uses))));
+            meta.lore(Chat.translate(plugin.getConfiguration().getWandLore().stream().map(x -> x.replace("%uses%", numberFormat.format(uses))).toList()));
+        });
+    }
+
     public void setUses(ItemStack item, int uses) {
         item.editMeta(itemMeta -> itemMeta.getPersistentDataContainer().set(usesKey, PersistentDataType.INTEGER, uses));
+
+        updateMeta(item, uses);
     }
 
 }
