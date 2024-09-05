@@ -6,5 +6,5 @@ softdepend:
   - Vault
   - Essentials
 commands:
-  getwand:
+  givewand:
 
