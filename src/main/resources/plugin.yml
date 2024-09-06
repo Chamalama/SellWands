@@ -1,6 +1,6 @@
 name: SellWands
 version: '1.0'
-main: com.cham.sellWands.SellWands
+main: com.cham.sellwands.SellWandPlugin
 api-version: '1.21'
 softdepend:
   - Vault

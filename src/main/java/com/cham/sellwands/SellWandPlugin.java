@@ -33,13 +33,14 @@ public final class SellWandPlugin extends JavaPlugin {
 
         initVault();
 
+        getCommand("givewand").setExecutor(new WandCommand());
+
         new WandListener(this);
 
         config = new Config(this);
 
         new SellWandFactory(this);
 
-        getCommand("givewand").setExecutor(new WandCommand());
 
     }
 

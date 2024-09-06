@@ -36,8 +36,6 @@ public class WandCommand implements CommandExecutor {
             sender.sendMessage(Chat.translate("&cThe number you provided is invalid."));
         }
 
-//        commandSender.getInventory().addItem(SellWandFactory.SELLWAND.buildWand(SellWandPlugin.getSellWands().getConfiguration().getWandUses()));
-
         return false;
     }
 }
