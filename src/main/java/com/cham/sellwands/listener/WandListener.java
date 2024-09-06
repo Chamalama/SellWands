@@ -29,7 +29,7 @@ public class WandListener implements Listener {
 
     private final Essentials essentials;
 
-    private DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     public WandListener(SellWandPlugin plugin) {
         this.plugin = plugin;
@@ -96,7 +96,7 @@ public class WandListener implements Listener {
         // Handles Breakdown message
         if (!plugin.getConfiguration().getWandBreakdownMessage().isBlank()) {
             breakdownMap.forEach((material, breakdownEntry) ->
-                    player.sendMessage(Chat.translate(plugin.getConfiguration().getWandSellMessage()
+                    player.sendMessage(Chat.translate(plugin.getConfiguration().getWandBreakdownMessage()
                             .replace("%value%", decimalFormat.format(breakdownEntry.getValue()))
                             .replace("%material%", Chat.capitalize(material.toString()))
                             .replace("%amount%", NumberFormat.getInstance().format(breakdownEntry.getAmount()))
