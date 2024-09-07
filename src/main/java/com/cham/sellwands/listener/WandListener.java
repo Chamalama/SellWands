@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class WandListener implements Listener {
 
-
     private final SellWandPlugin plugin;
 
     private final Essentials essentials;
@@ -44,7 +43,7 @@ public class WandListener implements Listener {
         Block block = event.getClickedBlock();
 
         ItemStack stack = event.getItem();
-
+n
         if (event.getHand() != EquipmentSlot.HAND
                 || stack == null
                 || !SellWandFactory.get().isSellWand(stack)
@@ -69,7 +68,8 @@ public class WandListener implements Listener {
         final Map<Material, BreakdownEntry> breakdownMap = new HashMap<>();
 
         for (ItemStack itemStack : inventory) {
-            if (itemStack == null || essentials.getWorth().getPrice(essentials, itemStack).doubleValue() <= 0) continue;
+            if (itemStack == null || essentials.getWorth().getPrice(essentials, itemStack) == null || essentials.getWorth().getPrice(essentials, itemStack).doubleValue() <= 0)
+                continue;
 
             final double price = essentials.getWorth().getPrice(essentials, itemStack).doubleValue() * itemStack.getAmount();
 
@@ -98,7 +98,7 @@ public class WandListener implements Listener {
             breakdownMap.forEach((material, breakdownEntry) ->
                     player.sendMessage(Chat.translate(plugin.getConfiguration().getWandBreakdownMessage()
                             .replace("%value%", decimalFormat.format(breakdownEntry.getValue()))
-                            .replace("%material%", Chat.capitalize(material.toString()))
+                            .replace("%material%", Chat.capitalize(material.toString().replace("_", " ")))
                             .replace("%amount%", NumberFormat.getInstance().format(breakdownEntry.getAmount()))
                     )));
 
