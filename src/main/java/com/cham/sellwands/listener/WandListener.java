@@ -69,7 +69,8 @@ public class WandListener implements Listener {
         final Map<Material, BreakdownEntry> breakdownMap = new HashMap<>();
 
         for (ItemStack itemStack : inventory) {
-            if (itemStack == null || essentials.getWorth().getPrice(essentials, itemStack).doubleValue() <= 0) continue;
+            if (itemStack == null || essentials.getWorth().getPrice(essentials, itemStack) == null || essentials.getWorth().getPrice(essentials, itemStack).doubleValue() <= 0)
+                continue;
 
             final double price = essentials.getWorth().getPrice(essentials, itemStack).doubleValue() * itemStack.getAmount();
 
